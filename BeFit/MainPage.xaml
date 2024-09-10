@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BeFit.MainPage">
+
+    <ContentPage.Background>
+        <RadialGradientBrush Center="0.5,0.5" Radius="0.5">
+            <GradientStop Color="LightGray" Offset="0.4" />
+            <GradientStop Color="LimeGreen" Offset="4.0" />
+        </RadialGradientBrush>
+    </ContentPage.Background>
+
+    <Grid Padding="20" RowDefinitions="Auto,Auto,Auto,*,Auto,Auto,Auto,Auto,Auto,Auto" ColumnDefinitions="*">
+
+        <Label Grid.Row="0"
+               Text="Plan Treningowy"
+               FontSize="Large"
+               HorizontalOptions="Center"
+               TextColor="{StaticResource PrimaryGreen}"
+               FontAttributes="Bold" />
+
+        <DatePicker Grid.Row="1"
+                    x:Name="datePicker"
+                    DateSelected="OnDateSelected"
+                    Format="D"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TextColor="DarkRed"
+                    FontSize="Medium" />
+
+        <Entry Grid.Row="2"
+               x:Name="workoutPlanEntry"
+               Placeholder="Nazwa planu"
+               VerticalOptions="Center"
+               HorizontalOptions="FillAndExpand" />
+
+        <Label Grid.Row="3"
+               Text="Ćwiczenia:"
+                VerticalOptions="End"
+               FontSize="Medium"
+               TextColor="{StaticResource PrimaryGreen}" />
+
+        <CollectionView Grid.Row="4"
+                        x:Name="exercisesList"
+                        ItemsSource="{Binding Exercises}"
+                        HeightRequest="133"
+                        SelectionMode="None">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BackgroundColor="White"
+                           BorderColor="{StaticResource SecondaryGreen}"
+                           CornerRadius="10"
+                           Padding="10"
+                           Margin="10">
+                        <StackLayout>
+                            <Entry Text="{Binding Name}"
+                                   Placeholder="Nazwa ćwiczenia"
+                                   FontSize="Medium"
+                                   HeightRequest="50"
+                                   TextColor="{StaticResource PrimaryGreen}" />
+                            <HorizontalStackLayout>
+                                <Entry Text="{Binding Sets}"
+                                       Placeholder="Serii"
+                                       Keyboard="Numeric"
+                                       WidthRequest="50"
+                                       FontSize="Medium"
+                                       TextColor="{StaticResource PrimaryGreen}" />
+                                <Entry Text="{Binding Reps}"
+                                       Placeholder="Powtórzeń"
+                                       Keyboard="Numeric"
+                                       WidthRequest="120"
+                                       FontSize="Medium"
+                                       TextColor="{StaticResource PrimaryGreen}" />
+                            </HorizontalStackLayout>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        <Button Grid.Row="5"
+                Text="Dodaj Ćwiczenie"
+                Clicked="OnAddExerciseClicked"
+                TextColor="White"
+                BackgroundColor="{StaticResource PrimaryGreen}"
+                HorizontalOptions="Center" />
+
+        <Button Grid.Row="6"
+                Text="Dodaj Plan Treningowy"
+                Clicked="OnAddWorkoutClicked"
+                TextColor="White"
+                BackgroundColor="{StaticResource PrimaryGreen}"
+                HorizontalOptions="Center" />
+
+        <Label Grid.Row="7"
+               x:Name="selectedDateLabel"
+               Text="Nie wybrano daty"
+               FontSize="Medium"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               TextColor="{StaticResource PrimaryGreen}" />
+
+        <Label Grid.Row="8"
+               Text="Dni z zaplanowanymi treningami: "
+               FontSize="Large"
+               HorizontalOptions="End"
+               TextColor="{StaticResource PrimaryGreen}" />
+
+        <CollectionView Grid.Row="9"
+                        x:Name="workoutDaysList"
+                        ItemsSource="{Binding WorkoutDays}"
+                        SelectionMode="Single"
+                        SelectionChanged="OnWorkoutDaySelected"
+                        HeightRequest="200"
+                        VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding}"
+                           FontSize="Medium"
+                           HorizontalOptions="Center"
+                           TextColor="Black" 
+                           VerticalOptions="Start"
+                           Margin="0,5,100,0" />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+    </Grid>
+</ContentPage>
